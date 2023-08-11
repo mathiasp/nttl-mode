@@ -57,14 +57,19 @@
 ;; (add-hook 'nttl-mode-hook 'turn-on-font-lock)
 ;; (add-to-list 'auto-mode-alist '("\\.\\(n3\\|ttl\\|trig\\)\\'" . nttl-mode))
 ;;
-;; Version: @VERSION@
+;; Version: 0.1
 
 ;;; Code:
 
 
 ;;;###autoload
-(define-derived-mode nttl-mode prog-mode "N3/Turtle mode"
-  "Major mode for Turtle RDF documents."
+(define-derived-mode nttl-mode prog-mode "NTurtle mode"
+  "Major mode for NTurtle RDF documents. 
+
+Nested Turtle or NTurtle is a conservative extension of turtle,
+allowing to nest information about named nodes just like blank
+nodes. It uses {} following the node IRI for named nodes
+following the example of [] as used by blank nodes."
 
   ;; Comments syntax
   (set (make-local-variable 'comment-start) "# ")
@@ -122,7 +127,7 @@
      ((looking-at "$") (save-excursion (backward-to-indentation 1)))
      ;; beginning of stanza
      ((or (looking-at "@")         ; @prefix
-          (looking-at "#")         ; @base
+          (looking-at "#")         ; comment
           (save-excursion          ; a subject
             (while (forward-comment -1))
             (or (looking-back "\\.")
@@ -192,7 +197,7 @@ or a single non-whitespace character if there is no whitespace before point."
 
 (defun nttl-mode-version ()
   "The version of nttl-mode."
-  "@VERSION@")
+  "0.1")
 
 (provide 'nttl-mode)
 ;;; nttl-mode.el ends here
