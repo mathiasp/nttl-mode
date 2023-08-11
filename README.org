@@ -1,0 +1,54 @@
+This is an Emacs mode for editing Nested Turtle (RDF) files.
+
+This is a conservative extension to turtle, allowing to nest named triples
+similar to blank nodes, using ’{}’ for named nodes instead of the ’[]’ used for
+blank nodes.
+
+I am planning to make a text based interface to triplestores, and I envision the
+user to be able to tab on an entity to display all properties of that entity, or
+to “open” the entity, somewhat inspired from outliners.
+
+This is based on ~ttl-mode.el~ from Peter Vasil, and is not that much modified.
+
+
+  * Copyright 2023, [[https://virtual-earth.de/][Mathias Picker]]
+- - - - Notes from original README follow:
+  
+**Note**: I'm no longer actively developing this.  I'm willing to
+accept pull requests; and if someone wants to take over the code, I'd
+probably take little persuading to agree.
+
+It is based on an excellent start made by Hugo Haas.
+I've extended it to support indentation, some electric punctuation,
+and hungry delete.
+
+To use, download the file `ttl-mode.el` from [Github](https://github.com/nxg/ttl-mode)
+(or clone the project), put the file in the emacs load path (look at the variable
+load-path to find where emacs currently searches), and add something
+like the following to your `.emacs` file.
+
+#+begin_src elisp
+    (autoload 'nttl-mode "nttl-mode" "Major mode for NTurtle files" t)
+    (add-hook 'nttl-mode-hook    ; Turn on font lock when in ttl mode
+              'turn-on-font-lock)
+    (setq auto-mode-alist
+          (append
+           (list
+            '("\\.nttl" . nttl-mode)
+            '("\\.ntl" . nttl-mode))
+           auto-mode-alist))
+#+end_src
+
+Comments and contributions most welcome.
+
+  * Copyright 2003-2007, [Hugo Haas](http://www.hugoh.net)
+  * Copyright 2011-2012, [Norman Gray](https://nxg.me.uk)
+  * Copyright 2013, [Daniel Gerber](https://danielgerber.net)
+  * Copyright 2016, [Peter Vasil](http://petervasil.net)
+
+`nttl-mode.el` is released under the terms of the
+[two-clause BSD licence](https://opensource.org/licenses/bsd-license.php)
+(see the `nttl-model.el` header for the licence text).
+
+Norman Gray  
+https://nxg.me.uk
