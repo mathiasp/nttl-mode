@@ -1,0 +1,15 @@
+PREFIX : <https://terraformingterra.com/ontology/terraformingterra/> 
+PREFIX :gist <https://w3id.org/semanticarts/ns/ontology/gist/> 
+
+:mathias :mag :schnitzel , :knödel, :afrika ;
+    :wohntIn :münchen
+    {
+        :flughafenCode "MUC"^^xsd:string
+        :bayerisch "Minga"@de
+        } ;
+    :befreundetMit :stefanie .
+
+
+
+
+
