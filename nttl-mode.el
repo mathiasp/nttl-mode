@@ -58,6 +58,9 @@
 ;; (add-to-list 'auto-mode-alist '("\\.\\(n3\\|ttl\\|trig\\)\\'" . nttl-mode))
 ;;
 ;; Version: 0.1
+;;
+;; <2023-08-11 Fr.> seems I do not need to add anything for this to accept curly
+;;                  braces. Lucy me :)
 
 ;;; Code:
 
@@ -78,13 +81,13 @@ following the example of [] as used by blank nodes."
 
   ;; fontification
   (setq font-lock-defaults
-        `((,(regexp-opt '("@prefix" "PREFIX" "@base" "BASE" "a") 'symbols)  ;keywords
+        `((,(regexp-opt '("@prefix" "PREFIX" "@base" "BASE" "a") 'symbols) ;keywords
            ("\\^\\^[^,;.]+" 0 font-lock-preprocessor-face t) ;literal types
-           ("@[[:word:]_]+" . font-lock-preprocessor-face) ;languages
-           ("\\S-*?:" . font-lock-type-face)       ;prefix
+           ("@[[:word:]_]+" . font-lock-preprocessor-face)   ;languages
+           ("\\S-*?:" . font-lock-type-face)                 ;prefix
            (":\\([[:word:]_-]+\\)\\>" 1 font-lock-constant-face nil) ;suffix
-           ("<.*?>" 0 font-lock-function-name-face t) ;resources
-           ("[,;.]" 0 font-lock-keyword-face) ;punctuation
+           ("<.*?>" 0 font-lock-function-name-face t)                ;resources
+           ("[,;.]" 0 font-lock-keyword-face)             ;punctuation
            ("^\\s-*\\(#.*\\)" 1 font-lock-comment-face t) ;comment
            ) nil))
 
