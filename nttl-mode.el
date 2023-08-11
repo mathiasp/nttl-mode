@@ -78,7 +78,7 @@ following the example of [] as used by blank nodes."
 
   ;; fontification
   (setq font-lock-defaults
-        `((,(regexp-opt '("@prefix" "@base" "a") 'symbols)  ;keywords
+        `((,(regexp-opt '("@prefix" "PREFIX" "@base" "BASE" "a") 'symbols)  ;keywords
            ("\\^\\^[^,;.]+" 0 font-lock-preprocessor-face t) ;literal types
            ("@[[:word:]_]+" . font-lock-preprocessor-face) ;languages
            ("\\S-*?:" . font-lock-type-face)       ;prefix
@@ -126,11 +126,15 @@ following the example of [] as used by blank nodes."
      ;; empty line
      ((looking-at "$") (save-excursion (backward-to-indentation 1)))
      ;; beginning of stanza
-     ((or (looking-at "@")         ; @prefix
+     ((or (looking-at "@")         ; @prefix or @base
+          (looking-at "PREFIX")    ; PREFIX
+          (looking-at "BASE")      ; BASE
           (looking-at "#")         ; comment
           (save-excursion          ; a subject
             (while (forward-comment -1))
             (or (looking-back "\\.")
+                (looking-back "PREFIX.*")
+                (looking-back "BASE.*")
                 (back-to-indentation) (looking-at "@"))) ; after prolog
           ) 0)
      ;; inside blank nodes
