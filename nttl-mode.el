@@ -79,6 +79,10 @@ following the example of [] as used by blank nodes."
   (modify-syntax-entry ?# "< b" nttl-mode-syntax-table)
   (modify-syntax-entry ?\n "> b" nttl-mode-syntax-table)
 
+  ;; Symbol syntax: allow : for QNames.
+  ;; This is probably not enough, IRIs enclosed by <> are also symbols here...
+  (modify-syntax-entry ?: "_" nttl-mode-syntax-table)
+
   ;; fontification
   (setq font-lock-defaults
         `((,(regexp-opt '("@prefix" "PREFIX" "@base" "BASE" "a") 'symbols) ;keywords
