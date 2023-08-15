@@ -1,5 +1,6 @@
 PREFIX : <https://terraformingterra.com/ontology/terraformingterra/> 
-PREFIX :gist <https://w3id.org/semanticarts/ns/ontology/gist/> 
+PREFIX gist: <https://w3id.org/semanticarts/ns/ontology/gist/> 
+PREFIX doe: <https://w3id.org/semanticarts/ns/ontology/gist/> 
 
 :mathias :mag :schnitzel , :knödel, :afrika ;
     :wohntIn :münchen
@@ -9,7 +10,22 @@ PREFIX :gist <https://w3id.org/semanticarts/ns/ontology/gist/>
         } ;
     :befreundetMit :stefanie .
 
+# from "Demystifying OWL for the Enterprise", 
 
+:_JohnDoeDoctorVisit12Jan a :PatientVisit ;
+    doe:careProvider :_DrMessie { :competency :medium } ;
+    doe:careRecipient :_MathiasPicker {
+        :illness "Wunde" ;
+        :born "1965-06-14"^^xsd:date ;
+        :livesIn :residency-mp-muc-we142 {
+            :plz "80339" ;
+            :city "München"@de ;
+            :city "Munich"@en ;
+            :street "Westendstraße 142"
+            }
+        } ;
+    gist:startDate "2023-08-11T09:15:00"^^xsd:dateTime ;
+    gist:endDate "2023-08-11T10:44:00"^^xsd:dateTime .
 
 
 
