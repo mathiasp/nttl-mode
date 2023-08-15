@@ -1,14 +1,12 @@
-This is an Emacs mode for editing Nested Turtle (RDF) files.
-
-This is a conservative extension to turtle, allowing to nest named triples
-similar to blank nodes, using ’{}’ for named nodes instead of the ’[]’ used for
-blank nodes.
-
-I am planning to make a text based interface to triplestores, and I envision the
-user to be able to tab on an entity to display all properties of that entity, or
-to “open” the entity, somewhat inspired from outliners.
+This is an Emacs mode for editing Turtle (RDF) files.
 
 This is based on ~ttl-mode.el~ from Peter Vasil, and is not that much modified.
+
+I discovered that I can use my experimental syntax with {} for nested named
+nodes with this ttl mode, I do not need to extend it.
+
+OTOH I need to add to the syntax table at least to recognise QNames as symbols,
+so the current ttl-mode does not cut it. 
 
 
   * Copyright 2023, [[https://virtual-earth.de/][Mathias Picker]]
@@ -28,14 +26,14 @@ load-path to find where emacs currently searches), and add something
 like the following to your `.emacs` file.
 
 #+begin_src elisp
-    (autoload 'nttl-mode "nttl-mode" "Major mode for NTurtle files" t)
-    (add-hook 'nttl-mode-hook    ; Turn on font lock when in ttl mode
+    (autoload 'ttl-mode "ttl-mode" "Major mode for Turtle files" t)
+    (add-hook 'ttl-mode-hook    ; Turn on font lock when in ttl mode
               'turn-on-font-lock)
     (setq auto-mode-alist
           (append
            (list
-            '("\\.nttl" . nttl-mode)
-            '("\\.ntl" . nttl-mode))
+            '("\\.ttl" . ttl-mode)
+            '("\\.ntl" . ttl-mode))
            auto-mode-alist))
 #+end_src
 
@@ -46,9 +44,9 @@ Comments and contributions most welcome.
   * Copyright 2013, [Daniel Gerber](https://danielgerber.net)
   * Copyright 2016, [Peter Vasil](http://petervasil.net)
 
-`nttl-mode.el` is released under the terms of the
+`ttl-mode.el` is released under the terms of the
 [two-clause BSD licence](https://opensource.org/licenses/bsd-license.php)
-(see the `nttl-model.el` header for the licence text).
+(see the `ttl-model.el` header for the licence text).
 
 Norman Gray  
 https://nxg.me.uk

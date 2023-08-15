@@ -1,7 +1,7 @@
-;;; nttl-mode.el --- mode for NTurtle -*- lexical-binding: t; -*-
+;;; ttl-mode.el --- mode for Turtle -*- lexical-binding: t; -*-
 
 ;;; Commentary:
-;; nttl-mode.el is released under the terms of the two-clause BSD licence:
+;; ttl-mode.el is released under the terms of the two-clause BSD licence:
 ;;
 ;; Copyright 2003-2007, Hugo Haas <http://www.hugoh.net>
 ;; Copyright 2011-2012, Norman Gray <https://nxg.me.uk>
@@ -40,7 +40,7 @@
 ;; at http://larve.net/people/hugo/2003/scratchpad/NotationThreeEmacsMode.html
 ;; Also draws on http://dishevelled.net/elisp/turtle-mode.el (which is for the _other_ turtle!)
 ;;
-;; Project hosted at <https://github.com/mathiasp/nttl-mode>.  See there for updates.
+;; Project hosted at <https://github.com/virtual-earth.de/ttl-mode.el>.  See there for updates.
 ;;
 ;; For documentation on Notation 3, see:
 ;; http://www.w3.org/DesignIssues/Notation3.html
@@ -53,9 +53,9 @@
 ;;
 ;; To use:
 ;;
-;; (autoload 'nttl-mode "nttl-mode")
-;; (add-hook 'nttl-mode-hook 'turn-on-font-lock)
-;; (add-to-list 'auto-mode-alist '("\\.\\(n3\\|ttl\\|trig\\)\\'" . nttl-mode))
+;; (autoload 'ttl-mode "ttl-mode")
+;; (add-hook 'ttl-mode-hook 'turn-on-font-lock)
+;; (add-to-list 'auto-mode-alist '("\\.\\(n3\\|ttl\\|trig\\)\\'" . ttl-mode))
 ;;
 ;; Version: 0.1
 ;;
@@ -66,7 +66,7 @@
 
 
 ;;;###autoload
-(define-derived-mode nttl-mode prog-mode "NTurtle mode"
+(define-derived-mode ttl-mode prog-mode "NTurtle mode"
   "Major mode for NTurtle RDF documents. 
 
 Nested Turtle or NTurtle is a conservative extension of turtle,
@@ -76,12 +76,12 @@ following the example of [] as used by blank nodes."
 
   ;; Comments syntax
   (set (make-local-variable 'comment-start) "# ")
-  (modify-syntax-entry ?# "< b" nttl-mode-syntax-table)
-  (modify-syntax-entry ?\n "> b" nttl-mode-syntax-table)
+  (modify-syntax-entry ?# "< b" ttl-mode-syntax-table)
+  (modify-syntax-entry ?\n "> b" ttl-mode-syntax-table)
 
   ;; Symbol syntax: allow : for QNames.
   ;; This is probably not enough, IRIs enclosed by <> are also symbols here...
-  (modify-syntax-entry ?: "_" nttl-mode-syntax-table)
+  (modify-syntax-entry ?: "_" ttl-mode-syntax-table)
 
   ;; fontification
   (setq font-lock-defaults
@@ -96,35 +96,35 @@ following the example of [] as used by blank nodes."
            ) nil))
 
   ;; indentation
-  (set (make-local-variable 'indent-line-function) 'nttl-indent-line)
+  (set (make-local-variable 'indent-line-function) 'ttl-indent-line)
   (set (make-local-variable 'indent-tabs-mode) nil))
 
 ;; electric punctuation
-;; (define-key nttl-mode-map (kbd "\,") 'nttl-electric-comma)
-(define-key nttl-mode-map (kbd "\;") 'nttl-electric-semicolon)
-(define-key nttl-mode-map (kbd "\.") 'nttl-electric-dot)
-(define-key nttl-mode-map [backspace] 'nttl-hungry-delete-backwards)
+;; (define-key ttl-mode-map (kbd "\,") 'ttl-electric-comma)
+(define-key ttl-mode-map (kbd "\;") 'ttl-electric-semicolon)
+(define-key ttl-mode-map (kbd "\.") 'ttl-electric-dot)
+(define-key ttl-mode-map [backspace] 'ttl-hungry-delete-backwards)
 
 
-(defgroup ttl nil "Customization for nttl-mode")
+(defgroup ttl nil "Customization for ttl-mode")
 
-(defcustom nttl-indent-level 4
-  "Number of spaces for each indentation step in `nttl-mode'."
+(defcustom ttl-indent-level 4
+  "Number of spaces for each indentation step in `ttl-mode'."
   :type 'integer)
 
-(defcustom nttl-electric-punctuation t
+(defcustom ttl-electric-punctuation t
   "*If non-nil, `\;' or `\.' will self insert, reindent the line, and do a newline. (To insert while t, do: \\[quoted-insert] \;)."
   :type 'boolean)
 
 
-(defun nttl-indent-line ()
+(defun ttl-indent-line ()
   (interactive)
   (save-excursion
     (indent-line-to
-     (or (ignore-errors (nttl-calculate-indentation)) 0)))
+     (or (ignore-errors (ttl-calculate-indentation)) 0)))
   (move-to-column (max (current-indentation) (current-column))))
 
-(defun nttl-calculate-indentation ()
+(defun ttl-calculate-indentation ()
   (save-excursion
     (backward-to-indentation 0)
     (cond
@@ -145,7 +145,7 @@ following the example of [] as used by blank nodes."
                 (back-to-indentation) (looking-at "@"))) ; after prolog
           ) 0)
      ;; inside blank nodes
-     (t (* nttl-indent-level
+     (t (* ttl-indent-level
            (+ (if (save-excursion
                     (while (forward-comment -1))
                     (looking-back "\\,")) ; object list
@@ -153,42 +153,42 @@ following the example of [] as used by blank nodes."
               (nth 0 (syntax-ppss))	; levels in parens
               ))))))
 
-(defun nttl-insulate ()
+(defun ttl-insulate ()
   "Return true if this location should not be electrified"
-  (or (not nttl-electric-punctuation)
+  (or (not ttl-electric-punctuation)
       (let '(s (syntax-ppss))
         (or (nth 3 s)
             (nth 4 s)
-            (nttl-in-resource-p)))))
+            (ttl-in-resource-p)))))
 
-(defun nttl-in-resource-p ()
+(defun ttl-in-resource-p ()
   "Is point within a resource, marked by <...>?"
   (save-excursion
     (and (re-search-backward "[<> ]" nil t)
          (looking-at "<"))))
 
-;; (defun nttl-electric-comma ()
+;; (defun ttl-electric-comma ()
 ;;   (interactive)
-;;   (if (nttl-insulate) (insert ",")
+;;   (if (ttl-insulate) (insert ",")
 ;;     (if (not (looking-back " ")) (insert " "))
 ;;     (insert ",")
 ;;     (reindent-then-newline-and-indent)))
 
-(defun nttl-electric-semicolon ()
+(defun ttl-electric-semicolon ()
   (interactive)
-  (if (nttl-insulate) (insert ";")
+  (if (ttl-insulate) (insert ";")
     (if (not (looking-back " ")) (insert " "))
     (insert ";")
     (reindent-then-newline-and-indent)))
 
-(defun nttl-electric-dot ()
+(defun ttl-electric-dot ()
   (interactive)
-  (if (nttl-insulate) (insert ".")
+  (if (ttl-insulate) (insert ".")
     (if (not (looking-back " ")) (insert " "))
     (insert ".")
     (reindent-then-newline-and-indent)))
 
-(defun nttl-skip-ws-backwards ()  ;adapted from cc-mode
+(defun ttl-skip-ws-backwards ()  ;adapted from cc-mode
   "Move backwards across whitespace."
   (while (progn
            (skip-chars-backward " \t\n\r\f\v")
@@ -196,19 +196,19 @@ following the example of [] as used by blank nodes."
                 (eq (char-before) ?\\)))
     (backward-char)))
 
-(defun nttl-hungry-delete-backwards ()
+(defun ttl-hungry-delete-backwards ()
   "Delete backwards, either all of the preceding whitespace,
 or a single non-whitespace character if there is no whitespace before point."
   (interactive)
   (let ((here (point)))
-    (nttl-skip-ws-backwards)
+    (ttl-skip-ws-backwards)
     (if (/= (point) here)
         (delete-region (point) here)
       (backward-delete-char-untabify 1))))
 
-(defun nttl-mode-version ()
-  "The version of nttl-mode."
+(defun ttl-mode-version ()
+  "The version of ttl-mode."
   "0.1")
 
-(provide 'nttl-mode)
-;;; nttl-mode.el ends here
+(provide 'ttl-mode)
+;;; ttl-mode.el ends here
