@@ -1,7 +1,7 @@
-;;; ttl-mode --- mode for Turtle -*- lexical-binding: t; -*-
+;;; ttl-mode.el --- mode for Turtle -*- lexical-binding: t; -*-
 
 ;;; Commentary:
-;; ttl-mode is released under the terms of the two-clause BSD licence:
+;; ttl-mode.el is released under the terms of the two-clause BSD licence:
 ;;
 ;; Copyright 2003-2007, Hugo Haas <http://www.hugoh.net>
 ;; Copyright 2011-2012, Norman Gray <https://nxg.me.uk>
