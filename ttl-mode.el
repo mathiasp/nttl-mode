@@ -1,7 +1,7 @@
-;;; ttl-mode.el --- mode for Turtle -*- lexical-binding: t; -*-
+;;; ttl-mode --- mode for Turtle -*- lexical-binding: t; -*-
 
 ;;; Commentary:
-;; ttl-mode.el is released under the terms of the two-clause BSD licence:
+;; ttl-mode is released under the terms of the two-clause BSD licence:
 ;;
 ;; Copyright 2003-2007, Hugo Haas <http://www.hugoh.net>
 ;; Copyright 2011-2012, Norman Gray <https://nxg.me.uk>
@@ -40,7 +40,7 @@
 ;; at http://larve.net/people/hugo/2003/scratchpad/NotationThreeEmacsMode.html
 ;; Also draws on http://dishevelled.net/elisp/turtle-mode.el (which is for the _other_ turtle!)
 ;;
-;; Project hosted at <https://github.com/virtual-earth.de/ttl-mode.el>.  See there for updates.
+;; Project hosted at <https://github.com/virtual-earth.de/ttl-mode>.  See there for updates.
 ;;
 ;; For documentation on Notation 3, see:
 ;; http://www.w3.org/DesignIssues/Notation3.html
@@ -211,4 +211,4 @@ or a single non-whitespace character if there is no whitespace before point."
   "0.1")
 
 (provide 'ttl-mode)
-;;; ttl-mode.el ends here
+;;; ttl-mode ends here
