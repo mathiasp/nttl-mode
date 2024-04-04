@@ -211,4 +211,4 @@ or a single non-whitespace character if there is no whitespace before point."
   "0.1")
 
 (provide 'ttl-mode)
-;;; ttl-mode ends here
+;;; ttl-mode.el ends here
